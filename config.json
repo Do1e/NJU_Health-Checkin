@@ -1,0 +1,12 @@
+{
+    "student_id": "XXXXXXXXX",
+    "password": "XXXXXXXXX",
+    "location": "default",
+    "body_temp_ok": "1",
+    "health_status": "1", 
+    "my_health_code_color": "1" ,
+    "fam_mem_health_code_color" : "1" ,
+    "leave_Nanjing" : "0",
+    "last_RNA" : "default",
+    "try_N_times" : "3"
+}

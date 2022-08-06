@@ -1,0 +1,7 @@
+PyExecJS
+requests
+beautifulsoup4
+pillow
+numpy
+opencv-python
+ddddocr
