@@ -16,13 +16,13 @@ jobs:
           python-version: 3.8
       - name: Run
         env:
-          User_Agent: ${{ secrets.User_Agent }}
-          Cookie: ${{ secrets.Cookie }}
-          location: ${{ secrets.location }}
-          body_temp_ok: ${{ secrets.body_temp_ok }}
-          health_status: ${{ secrets.health_status }}
-          my_health_code_color: ${{ secrets.my_health_code_color }}
-          fam_mem_health_code_color: ${{ secrets.fam_mem_health_code_color }}
-          last_RNA: ${{ secrets.last_RNA }}
-          try_N_times: ${{ secrets.try_N_times }}
+          USER_AGENT: ${{ secrets.USER_AGENT }}
+          COOKIE: ${{ secrets.COOKIE }}
+          LOCATION: ${{ secrets.LOCATION }}
+          BODY_TEMP_OK: ${{ secrets.BODY_TEMP_OK }}
+          HEALTH_STATUS: ${{ secrets.HEALTH_STATUS }}
+          MY_HEALTH_CODE_COLOR: ${{ secrets.MY_HEALTH_CODE_COLOR }}
+          FAM_MEM_HEALTH_CODE_COLOR: ${{ secrets.FAM_MEM_HEALTH_CODE_COLOR }}
+          LAST_RNA: ${{ secrets.LAST_RNA }}
+          TRY_N_TIMES: ${{ secrets.TRY_N_TIMES }}
         run: python decodeEnv.py && python checkin.py
