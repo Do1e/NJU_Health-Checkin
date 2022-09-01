@@ -1,6 +1,6 @@
 {
-    "student_id": "XXXXXXXXX",
-    "password": "XXXXXXXXX",
+    "User_Agent": "XXXXXXXXX",
+    "Cookie": "XXXXXXXXX",
     "location": "default",
     "body_temp_ok": "1",
     "health_status": "1", 

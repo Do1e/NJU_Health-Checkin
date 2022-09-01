@@ -1,75 +1,15 @@
 import json
-import re
 import time
-import urllib
 import requests
-import execjs
-from bs4 import BeautifulSoup
 from collections import namedtuple
 import datetime
-import ddddocr
 
 encrypt_js_script = "encrypt.js"
 configFile = "config.json"
-agent = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Mobile Safari/537.36"
 urls = {
-	"login": "https://authserver.nju.edu.cn/authserver/login",
 	"health_history": "http://ehallapp.nju.edu.cn/xgfw/sys/yqfxmrjkdkappnju/apply/getApplyInfoList.do",
 	"check_in": "http://ehallapp.nju.edu.cn/xgfw//sys/yqfxmrjkdkappnju/apply/saveApplyInfos.do",
-	"captcha": "https://authserver.nju.edu.cn/authserver/captcha.html"
 }
-
-def encrypt(password, encrypt_salt):
-	with open(encrypt_js_script, 'r') as f: 
-		script = ''.join(f.readlines())
-	context = execjs.compile(script)
-	return context.call('encryptAES', password, encrypt_salt)
-
-def readcode(session):
-	r = session.get(urls['captcha'])
-	ocr = ddddocr.DdddOcr(show_ad=False)
-	res = ocr.classification(r.content)
-	return res
-
-
-def login(session, username, password):
-	code = readcode(session)
-	r = session.get(urls['login'])
-	soup = BeautifulSoup(r.text, 'html.parser')
-	input_boxes = soup.find_all('input')
-	
-	input_info = {}
-	for i in input_boxes:
-		name, value = i.get('name'), i.get('value')
-		if name not in ["username", "password", "captchaResponse", None]:
-			input_info[name] = value 
-	
-	pattern = re.compile(r"var pwdDefaultEncryptSalt = (.*?);", re.MULTILINE | re.DOTALL)
-	encrypt_script = str(soup.find("script", text=pattern))
-	pwdDefaultEncryptSalt = re.search('pwdDefaultEncryptSalt = "(.*?)";', encrypt_script).group(1)
-	headers = {
-		'User-Agent': agent,
-		'Origin': "https://authserver.nju.edu.cn",
-		'Referer': urls['login'],
-		'Content-Type': 'application/x-www-form-urlencoded',
-		'Connection': 'keep-alive',
-		'Accept': 'application/json, text/plain, */*',
-		'Accept-Encoding': 'gzip, deflate',
-		'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7'
-	}
-
-	data = {
-		'username': username,
-		'password': encrypt(password, pwdDefaultEncryptSalt),
-		'captchaResponse': code,
-		'lt': input_info["lt"],
-		'dllt': input_info["dllt"],
-		'execution': input_info["execution"],
-		'_eventId': input_info["_eventId"],
-		'rmShown': input_info["rmShown"]
-	}
-	session.post(urls['login'], data=urllib.parse.urlencode(data), headers=headers)
-	
 
 def check_login(session, location):
 	r = session.get(urls['health_history'])
@@ -107,18 +47,18 @@ def checkin(session, checkin_info):
 		print("failed, " + cur_time)
 		return False
 
-
-
 def main():
 	with open(configFile, "r", encoding='utf-8') as f:
 		info = json.load(f)
 		if info['last_RNA'] == 'default':
 			yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
 			info['last_RNA'] = yesterday.strftime("%Y-%m-%d+%H")
+	assert 'User_Agent' in info, "Expected infomation `User_Agent` not found. Check config.json"
+	assert "Cookie" in info, "Expected infomation `Cookie` not found. Check config.json"
 	
 	session = requests.Session()
-	session.cookies = requests.cookies.RequestsCookieJar()
-	session.headers["User-Agent"] = agent
+	session.headers["Cookie"] = info["Cookie"]
+	session.headers["User-Agent"] = info['User_Agent']
 	session.headers["Accept"] = "application/json, text/plain, */*"
 	session.headers["Accept-Encoding"] = "gzip, deflate"
 	session.headers["Connection"] = "keep-alive"
@@ -126,10 +66,6 @@ def main():
 	session.headers["X-Requested-With"] = "com.wisedu.cpdaily.nju"
 	session.headers["Referer"] = "http://ehallapp.nju.edu.cn/xgfw/sys/mrjkdkappnju/index.html"
 
-	assert 'student_id' in info, "Expected infomation `student_id` not found. Check config.json"
-	assert "password" in info, "Expected infomation `password` not found. Check config.json"
-
-	login(session, username=info['student_id'], password=info['password'])
 	wid, location, status = check_login(session, info['location'])
 	if not status:
 		return False
