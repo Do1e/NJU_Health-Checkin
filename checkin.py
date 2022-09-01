@@ -1,4 +1,5 @@
 import json
+from re import A
 import time
 import requests
 from collections import namedtuple
@@ -62,8 +63,14 @@ def main():
 			yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
 			info['last_RNA'] = yesterday.strftime("%Y-%m-%d+%H")
 	assert 'User_Agent' in info, "Expected infomation `User_Agent` not found. Check config.json"
-	assert "Cookie" in info, "Expected infomation `Cookie` not found. Check config.json"
-	
+	assert 'Cookie' in info, "Expected infomation `Cookie` not found. Check config.json"
+	assert 'location' in info, "Expected infomation `location` not found. Check config.json"
+	assert 'body_temp_ok' in info, "Expected infomation `body_temp_ok` not found. Check config.json"
+	assert 'health_status' in info, "Expected infomation `health_status` not found. Check config.json"
+	assert 'my_health_code_color' in info, "Expected infomation `my_health_code_color` not found. Check config.json"
+	assert 'fam_mem_health_code_color' in info, "Expected infomation `fam_mem_health_code_color` not found. Check config.json"
+	assert 'last_RNA' in info, "Expected infomation `last_RNA` not found. Check config.json"
+
 	session = requests.Session()
 	session.headers["Cookie"] = info["Cookie"]
 	session.headers["User-Agent"] = info['User_Agent']
