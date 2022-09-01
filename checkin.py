@@ -109,3 +109,4 @@ if __name__ == '__main__':
 		if not result:
 			cur_time = datetime.datetime.now().strftime("%Y年%m月%d日 %H点%M分%S秒")
 			print("failed after try " + str(try_N_times) + " times, " + cur_time)
+			exit(1)
