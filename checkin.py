@@ -92,9 +92,12 @@ if __name__ == '__main__':
 		with open(configFile, "r", encoding='utf-8') as f:
 			info = json.load(f)
 		if 'try_N_times' in info:
-			try_N_times = int(info['try_N_times'])
+			try:
+				try_N_times = int(info['try_N_times'])
+			except ValueError:
+				try_N_times = 3
 		else:
-			try_N_times = 10
+			try_N_times = 3
 		N = try_N_times
 		while(not result and N > 0):
 			time.sleep(120)
