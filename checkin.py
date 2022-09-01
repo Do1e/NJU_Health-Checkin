@@ -21,7 +21,7 @@ def check_login(session, location):
 	print("Log in Successfully")
 	wid = history['data'][0]['WID']
 	if location == 'default':
-		location = history['data'][1]['CURR_LOCATION']
+		location = history['data'][0]['CURR_LOCATION']
 	return wid, location, True
 
 
