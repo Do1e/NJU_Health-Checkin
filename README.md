@@ -7,6 +7,27 @@
 * 若要每天12:00自动运行，请在`contab -e`中添加以下命令：`0 12 * * * cd /path/to/checkin && python checkin.py >> checkin.log 2>&1`
 * 或自行查找如何设置Windows下的定时任务
 
+**Github Actions**
+* 右上角fork本仓库，之后点击`Create fork`
+
+![1662048592065](image/README/1662048592065.png)
+
+* 在自己的仓库中点击 Settings -> Secrets -> Actions -> New repository secret
+
+![1662048748666](image/README/1662048748666.png)
+
+* 对config.json中的每一项进行都新建一个secret(User_Agent、Cookie为必填项)
+
+![1662048874330](image/README/1662048874330.png)
+
+* 点击 Actions -> I understand
+
+![1662048939547](image/README/1662048939547.png)
+
+* 最后Enable Actions即可，每天中午12:00自动运行，或修改`.github/workflows/checkin.yml`中的`cron`字段来修改运行时间
+
+![1662049002323](image/README/1662049002323.png)
+
 **config.json解析**
 
 * **User_Agent**：用户代理，提供你手机的型号，如小米10 Ultra为："Mozilla/5.0 (Linux; Android 12; M2007J1SC Build/SKQ1.220303.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/104.0.5112.97 Mobile Safari/537.36 cpdaily/9.0.15 wisedu/9.0.15"
