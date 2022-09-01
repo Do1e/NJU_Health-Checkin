@@ -4,7 +4,6 @@ import requests
 from collections import namedtuple
 import datetime
 
-encrypt_js_script = "encrypt.js"
 configFile = "config.json"
 urls = {
 	"health_history": "http://ehallapp.nju.edu.cn/xgfw/sys/yqfxmrjkdkappnju/apply/getApplyInfoList.do",
