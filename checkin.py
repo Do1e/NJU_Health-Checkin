@@ -42,7 +42,10 @@ def checkin(session, checkin_info):
 	checkin_url = checkin_url[:-1]  # drop last &
 
 	r = session.get(checkin_url)
-	result = json.loads(r.text)
+	try:
+		result = json.loads(r.text)
+	except:
+		return False
 
 	cur_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 	if result['code'] == '0' and result['msg'] == '成功':
