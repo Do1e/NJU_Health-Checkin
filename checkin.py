@@ -22,7 +22,13 @@ def check_login(session, location):
 	wid = history['data'][0]['WID']
 	if location == 'default':
 		location = history['data'][0]['CURR_LOCATION']
-	return wid, location, True
+	leaveNanjing = False
+	for i in range(14):
+		nowL = history['data'][i]['CURR_LOCATION']
+		if '南京市' not in nowL:
+			leaveNanjing = True
+			break
+	return wid, location, leaveNanjing
 
 
 def checkin(session, checkin_info):
@@ -65,9 +71,8 @@ def main():
 	session.headers["X-Requested-With"] = "com.wisedu.cpdaily.nju"
 	session.headers["Referer"] = "http://ehallapp.nju.edu.cn/xgfw/sys/mrjkdkappnju/index.html"
 
-	wid, location, status = check_login(session, info['location'])
-	if not status:
-		return False
+	wid, location, leaveNanjing = check_login(session, info['location'])
+	info['leave_Nanjing'] = '1' if leaveNanjing else '0'
 	health_status = (
 		wid,                                 # WID
 		location,                            # 地点
