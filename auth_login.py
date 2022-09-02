@@ -17,10 +17,11 @@ CpdailyInfo = "XvWN4SWqyX648L13hW5koOHt5AfBN6jFTi4zR23WludYuPZfzB8fDXe4zUu+ U2kC
 
 class Auth():
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, useragent):
         self.username = username
         self.password = password
         self.session = requests.Session()
+        self.session.headers["User-Agent"] = useragent
         self.is_login = False
         self.err_msg = "未知错误"
 

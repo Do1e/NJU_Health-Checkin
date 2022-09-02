@@ -9,6 +9,9 @@ assert len(info['student_id']) == 9, "Expected infomation `student_id` is not 9 
 info['password'] = os.environ['PASSWORD']
 assert info['password'] != '', "Expected infomation `password` not found. Check epository secret"
 
+info['User_Agent'] = os.environ['USER_AGENT']
+assert info['User_Agent'] != '', "Expected infomation `User_Agent` not found. Check repository secret"
+
 try:
     info['location'] = os.environ['LOCATION']
     if info['location'] == '':
