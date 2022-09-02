@@ -11,8 +11,6 @@ url_login = url_authserver + "login"
 url_captcha = url_authserver + "captcha.html"
 url_logout = url_authserver + "logout.do"
 url_index = url_authserver + "index.do"
-url_cpdaily_login = "https://mobile.campushoy.com/v6/auth/authentication/notcloud/login"
-CpdailyInfo = "XvWN4SWqyX648L13hW5koOHt5AfBN6jFTi4zR23WludYuPZfzB8fDXe4zUu+ U2kCbakEyBTxeW3f0hd9FPA5f1WlaN2n85/wugOANJTBEcZ7CmPce1z7sTFm VWNC6TSLhTYGMMmSBF8Mn6RrhgfKli+ojtqGHjnfc2FPd5sBgQwQDZRI0gSy /4jez8zcK40QTGAu/F6jLGjljx5L4BnTLQ=="
 
 class Auth():
 
