@@ -31,10 +31,7 @@ class Auth():
     
     def is_login(self):
         r = self.session.get(url_index)
-        if "个人资料" in r.text:
-            return True
-        else:
-            return False
+        return "个人资料" in r.text
 
     def login_mobile(self):
 
