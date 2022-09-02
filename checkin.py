@@ -117,9 +117,9 @@ if __name__ == '__main__':
 			try:
 				try_N_times = int(info['try_N_times'])
 			except ValueError:
-				try_N_times = 3
+				try_N_times = 0
 		else:
-			try_N_times = 3
+			try_N_times = 0
 		N = try_N_times
 		while(not result and N > 0):
 			time.sleep(120)
