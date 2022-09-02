@@ -73,6 +73,9 @@ def main():
 	assert 'last_RNA' in info, "Expected infomation `last_RNA` not found. Check config.json"
 
 	auth = Auth(info['student_id'], info['password'])
+	if auth is None:
+		print("Login Failed")
+		return False
 	if not auth.login_mobile():
 		print("Login Failed")
 		return False

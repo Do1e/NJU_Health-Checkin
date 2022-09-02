@@ -35,16 +35,19 @@ class Auth():
         self.password = password
 
         self.session = requests.Session()
-        self.get_login_init()
+        if not self.get_login_init():
+            return None
 
     def get_login_init(self):
         try:
             r = self.session.get(url_service, timeout=0.5) # 随即地发生超时错误
         except Exception:
             print("get_login_init超时，请重试")
+            return False
         self.pwdDefaultEncryptSalt = re.search("\"pwdDefaultEncryptSalt\" value=\"(.+?)\"", r.text).group(1)
         self.e1s1 = re.search("\"execution\" value=\"(e\d+?s\d+?)\"", r.text).group(1)
         self.lt = re.search("LT-.+?-cas", r.text).group()
+        return True
 
     def get_captcha(self):
         r = self.session.get(url_captcha)
