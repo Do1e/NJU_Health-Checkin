@@ -7,7 +7,7 @@
 
 **使用方法**
 
-* 在config.json中填写`student_id`、`password`、上次核酸时间(default表示默认昨天做的核酸)、打卡地点(default表示默认昨天的打卡地点，因此地点更新只需在手机上手动打卡一次即可)
+* 在config.json中填写`student_id`、`password`、`User_Agent`(见抓包方法)、上次核酸时间(default表示默认昨天做的核酸)、打卡地点(default表示默认昨天的打卡地点，因此地点更新只需在手机上手动打卡一次即可)
 * 运行`python checkin.py`即可完成打卡一次
 * 若要每天12:00自动运行，请在`contab -e`中添加以下命令：`0 12 * * * cd /path/to/checkin && python checkin.py >> checkin.log 2>&1`
 * 或自行查找如何设置Windows下的定时任务
@@ -21,7 +21,7 @@
 
 ![1662048748666](image/README/1662048748666.png)
 
-* 对config.json中的每一项进行都新建一个secret(student_id、password为**必填项**，其余默认值见config.json)。自动转换为大写是正常现象
+* 对config.json中的每一项进行都新建一个secret(student_id、password、User_Agent(见抓包方法)为**必填项**，其余默认值见config.json)。自动转换为大写是正常现象
 
 ![1662088555802](image/README/1662088555802.png)
 ![1662096230714](image/README/1662096230714.png)
@@ -46,6 +46,37 @@
 * 注：最近14天是否离宁由程序自动检测最近14天的打卡地址是否含有'南京市'字符串
 * **last_RNA**：您的最近一次核酸检测时间，"default"表示默认昨天做的核酸，格式如下："2022-09-01+16"，即2022年9月1日16点
 * **try_N_times**：若打卡失败的重试次数，不写为默认为3次
+
+**抓包方法**
+
+* 在电脑上下载[WireShark](https://www.wireshark.org/#download)，并安装
+* 打开电脑热点，手机连接上
+
+![1662040547198](image/README/1662040547198.png)
+
+* 打开cmd，输入`ipconfig`，找到IPv4地址为192.168.XX.1(XX为1~255之间的任意数字都可)的连接，记下其名字，如“本地连接\*12”
+
+![1662040857089](image/README/1662040857089.png)
+
+* 手机打开打卡界面，填入信息但暂时不点击“提交”
+* 打开WireShark，找到之前记下的连接名字
+
+![1662041047834](image/README/1662041047834.png)
+
+* 双击这个连接，之后手机马上点击“提交”并确定，此时WireShark会进行抓包，此时点击“停止捕获分组”
+
+![1662041181671](image/README/1662041181671.png)
+
+* 在搜索框中输入"http"，之后回车
+* 找到包含下图中红框中的项目，单击它
+
+![1662041435032](image/README/1662041435032.png)
+
+* 在下面的窗口展开`Hypertext Transfer Protocol`，便可以找到需要填入的`User_Agent`和`Cookie`，右击，复制值，粘贴进config.json中即可(注意json中的引号不要删掉了)
+
+![1662041538194](image/README/1662041538194.png)
+
+![1662041793462](image/README/1662041793462.png)
 
 :rotating_light:**请务必如实上报健康状况**，如有异地出行、身体状况变动、本人或家人健康码非绿色，请停止使用此脚本。
 
