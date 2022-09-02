@@ -5,7 +5,7 @@ import datetime
 
 from auth_login import Auth
 
-configFile = "config.json"
+configFile = "myconfig.json"
 urls = {
 	"health_history": "http://ehallapp.nju.edu.cn/xgfw/sys/yqfxmrjkdkappnju/apply/getApplyInfoList.do",
 	"check_in": "http://ehallapp.nju.edu.cn/xgfw//sys/yqfxmrjkdkappnju/apply/saveApplyInfos.do",
@@ -90,6 +90,8 @@ def main():
 	session.headers["Referer"] = "http://ehallapp.nju.edu.cn/xgfw/sys/mrjkdkappnju/index.html"
 
 	wid, location, leaveNanjing = check_login(session, info['location'])
+	if wid is None:
+		return False
 	info['leave_Nanjing'] = '1' if leaveNanjing else '0'
 	health_status = (
 		wid,                                 # WID
