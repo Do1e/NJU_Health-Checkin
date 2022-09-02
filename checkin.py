@@ -33,6 +33,7 @@ def check_login(session, location):
 
 
 def checkin(session, checkin_info):
+	cur_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 	info_t = namedtuple('Checkin_Info', 
 		['WID', 'CURR_LOCATION', 'IS_TWZC', 'IS_HAS_JKQK', 'JRSKMYS', 'JZRJRSKMYS', 'SFZJLN', 'ZJHSJCSJ']
 	)
@@ -46,9 +47,10 @@ def checkin(session, checkin_info):
 	try:
 		result = json.loads(r.text)
 	except:
+		print("failed, " + cur_time)
+		print(r.text)
 		return False
 
-	cur_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 	if result['code'] == '0' and result['msg'] == '成功':
 		print("successfully, " + cur_time)
 		return True 
