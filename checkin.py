@@ -5,7 +5,7 @@ import datetime
 
 from auth_login import Auth
 
-configFile = "myconfig.json"
+configFile = "config.json"
 urls = {
 	"health_history": "http://ehallapp.nju.edu.cn/xgfw/sys/yqfxmrjkdkappnju/apply/getApplyInfoList.do",
 	"check_in": "http://ehallapp.nju.edu.cn/xgfw//sys/yqfxmrjkdkappnju/apply/saveApplyInfos.do",
