@@ -22,9 +22,9 @@ def check_login(session, location):
 	print("Login Successfully")
 	wid = history['data'][0]['WID']
 	if location == 'default':
-		location = history['data'][0]['CURR_LOCATION']
+		location = history['data'][1]['CURR_LOCATION'] # 与昨天的CURR_LOCATION保持一致
 	leaveNanjing = False
-	for i in range(14):
+	for i in range(1,8): # 前7天
 		nowL = history['data'][i]['CURR_LOCATION']
 		if '南京市' not in nowL:
 			leaveNanjing = True
