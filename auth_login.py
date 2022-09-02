@@ -49,7 +49,7 @@ class Auth():
             data = base64.b64encode(data).decode()
             return data
                 
-        service = "https://authserver.nju.edu.cn/authserver/mobile/callback?appId=301317066"
+        service = "https://authserver.nju.edu.cn/authserver/mobile/callback"
         url_service = f"{url_login}?service={service}"
 
         r = self.session.get(url_service)
