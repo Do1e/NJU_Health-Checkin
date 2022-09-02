@@ -20,9 +20,9 @@
 
 ![1662048748666](image/README/1662048748666.png)
 
-* 对config.json中的每一项进行都新建一个secret(student_id、password为**必填项**)
+* 对config.json中的每一项进行都新建一个secret(student_id、password为**必填项**，其余默认值见config.json)
 
-![1662048874330](image/README/1662048874330.png)
+![1662088555802](image/README/1662088555802.png)
 
 * 点击 Actions -> I understand
 
