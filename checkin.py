@@ -24,7 +24,7 @@ def check_login(session, location):
 	if location == 'default':
 		location = history['data'][1]['CURR_LOCATION'] # 与昨天的CURR_LOCATION保持一致
 	leaveNanjing = False
-	for i in range(1,8): # 前7天
+	for i in range(1,14):
 		nowL = history['data'][i]['CURR_LOCATION']
 		if '南京市' not in nowL:
 			leaveNanjing = True
@@ -75,11 +75,9 @@ def main():
 	assert 'last_RNA' in info, "Expected infomation `last_RNA` not found. Check config.json"
 
 	auth = Auth(info['student_id'], info['password'])
-	if auth is None:
-		print("Login Failed")
-		return False
-	if not auth.login_mobile():
-		print("Login Failed")
+	auth.login_mobile()
+	if not auth.is_login:
+		print(auth.err_msg)
 		return False
 	session = auth.session
 	session.headers["User-Agent"] = 'Mozilla/5.0 (Linux; Android 12; M2007J1SC Build/SKQ1.220303.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/104.0.5112.97 Mobile Safari/537.36 cpdaily/9.0.15 wisedu/9.0.15'

@@ -6,7 +6,7 @@
 
 **使用方法**
 
-* 在config.json中填写`student_id`、`password`、上次核酸时间(default表示默认昨天做的核酸)、打卡地点(default表示默认上次的打卡地点，因此地点更新只需在手机上手动打卡一次即可)
+* 在config.json中填写`student_id`、`password`、上次核酸时间(default表示默认昨天做的核酸)、打卡地点(default表示默认昨天的打卡地点，因此地点更新只需在手机上手动打卡一次即可)
 * 运行`python checkin.py`即可完成打卡一次
 * 若要每天12:00自动运行，请在`contab -e`中添加以下命令：`0 12 * * * cd /path/to/checkin && python checkin.py >> checkin.log 2>&1`
 * 或自行查找如何设置Windows下的定时任务
@@ -37,7 +37,7 @@
 
 * **student_id**：学号
 * **password**：统一身份认证密码
-* **location**：打卡地址，"default"表示默认上次的打卡地点，因此地点更新只需在手机上手动打卡一次即可，或者直接使用字符串表示打卡地点，如"江苏省南京市栖霞区九乡河东路159号"
+* **location**：打卡地址，"default"表示默认昨天的打卡地点，因此地点更新只需在手机上手动打卡一次即可，或者直接使用字符串表示打卡地点，如"江苏省南京市栖霞区九乡河东路159号"
 * **body_temp_ok**：您的体温是否正常
 * **health_status**：您的其他健康情况
 * **my_health_code_color**：您今日的苏康码显示颜色
