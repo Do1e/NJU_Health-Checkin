@@ -75,13 +75,13 @@ def main():
 	assert 'fam_mem_health_code_color' in info, "Expected infomation `fam_mem_health_code_color` not found. Check config.json"
 	assert 'last_RNA' in info, "Expected infomation `last_RNA` not found. Check config.json"
 
-	auth = Auth(info['student_id'], info['password'], info['User_Agent'])
+	auth = Auth(info['student_id'], info['password'])
 	auth.login_mobile()
-	if not auth.is_login:
+	if not auth.is_login():
 		print(auth.err_msg)
 		return False
 	session = auth.session
-	session.headers["User-Agent"] = 'Mozilla/5.0 (Linux; Android 12; M2007J1SC Build/SKQ1.220303.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/104.0.5112.97 Mobile Safari/537.36 cpdaily/9.0.15 wisedu/9.0.15'
+	session.headers["User-Agent"] = info['User_Agent']
 	session.headers["Accept"] = "application/json, text/plain, */*"
 	session.headers["Accept-Encoding"] = "gzip, deflate"
 	session.headers["Connection"] = "keep-alive"
@@ -101,7 +101,9 @@ def main():
 		info['leave_Nanjing'],               # 14天是否离宁
 		info['last_RNA']                     # 上次核酸时间
 	)
-	return checkin(session, health_status)
+	status = checkin(session, health_status)
+	auth.logout()
+	return status
 	
 
 if __name__ == '__main__':

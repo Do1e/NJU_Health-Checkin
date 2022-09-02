@@ -7,7 +7,7 @@
 
 **使用方法**
 
-* 在config.json中填写`student_id`、`password`、`User_Agent`(见抓包方法)、上次核酸时间(default表示默认昨天做的核酸)、打卡地点(default表示默认昨天的打卡地点，因此地点更新只需在手机上手动打卡一次即可)
+* 在config.json中填写`student_id`、`password`、`User_Agent`(见抓包方法)、上次核酸时间(default表示默认昨天做的核酸)、打卡地点(default表示默认昨天的打卡地点，因此地点更新只需在手机上手动打卡一次即可)，其中student_id、password为**必填项**
 * 运行`python checkin.py`即可完成打卡一次
 * 若要每天12:00自动运行，请在`contab -e`中添加以下命令：`0 12 * * * cd /path/to/checkin && python checkin.py >> checkin.log 2>&1`
 * 或自行查找如何设置Windows下的定时任务
@@ -21,7 +21,7 @@
 
 ![1662048748666](image/README/1662048748666.png)
 
-* 对config.json中的每一项进行都新建一个secret(student_id、password、User_Agent(见抓包方法)为**必填项**，其余默认值见config.json)。自动转换为大写是正常现象
+* 对config.json中的每一项进行都新建一个secret(student_id、password为**必填项**，其余默认值见config.json)。自动转换为大写是正常现象
 
 ![1662088555802](image/README/1662088555802.png)
 ![1662096230714](image/README/1662096230714.png)

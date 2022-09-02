@@ -8,9 +8,12 @@ assert len(info['student_id']) == 9, "Expected infomation `student_id` is not 9 
 
 info['password'] = os.environ['PASSWORD']
 assert info['password'] != '', "Expected infomation `password` not found. Check epository secret"
-
-info['User_Agent'] = os.environ['USER_AGENT']
-assert info['User_Agent'] != '', "Expected infomation `User_Agent` not found. Check repository secret"
+try:
+    info['User_Agent'] = os.environ['USER_AGENT']
+    if info['User_Agent'] == '':
+        info['User_Agent'] = 'Mozilla/5.0 (Linux; Android 12; M2007J1SC Build/SKQ1.220303.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/104.0.5112.97 Mobile Safari/537.36 cpdaily/9.0.15 wisedu/9.0.15'
+except KeyError:
+    info['User_Agent'] = 'Mozilla/5.0 (Linux; Android 12; M2007J1SC Build/SKQ1.220303.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/104.0.5112.97 Mobile Safari/537.36 cpdaily/9.0.15 wisedu/9.0.15'
 
 try:
     info['location'] = os.environ['LOCATION']
