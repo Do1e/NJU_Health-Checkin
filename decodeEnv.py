@@ -2,8 +2,8 @@ import os
 import json
 
 info = {}
-info['User_Agent'] = os.environ['USER_AGENT']
-info['Cookie'] = os.environ['COOKIE']
+info['student_id'] = os.environ['STUDENT_ID']
+info['password'] = os.environ['PASSWORD']
 try:
     info['location'] = os.environ['LOCATION']
     if info['location'] == '':

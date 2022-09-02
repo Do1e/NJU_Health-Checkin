@@ -16,11 +16,11 @@ jobs:
           python-version: 3.10.0
       - name: Install dependencies
         run: |
-          pip install requests
+          pip install -r requirements.txt
       - name: Run
         env:
-          USER_AGENT: ${{ secrets.USER_AGENT }}
-          COOKIE: ${{ secrets.COOKIE }}
+          STUDENT_ID: ${{ secrets.STUDENT_ID }}
+          PASSWORD: ${{ secrets.PASSWORD }}
           LOCATION: ${{ secrets.LOCATION }}
           BODY_TEMP_OK: ${{ secrets.BODY_TEMP_OK }}
           HEALTH_STATUS: ${{ secrets.HEALTH_STATUS }}

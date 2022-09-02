@@ -1,9 +1,9 @@
 import json
-from re import A
 import time
-import requests
 from collections import namedtuple
 import datetime
+
+from auth_login import Auth
 
 configFile = "config.json"
 urls = {
@@ -19,7 +19,7 @@ def check_login(session, location):
 	except:
 		return None, location, False
 
-	print("Log in Successfully")
+	print("Login Successfully")
 	wid = history['data'][0]['WID']
 	if location == 'default':
 		location = history['data'][0]['CURR_LOCATION']
@@ -62,8 +62,9 @@ def main():
 		if info['last_RNA'] == 'default':
 			yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
 			info['last_RNA'] = yesterday.strftime("%Y-%m-%d+%H")
-	assert 'User_Agent' in info, "Expected infomation `User_Agent` not found. Check config.json"
-	assert 'Cookie' in info, "Expected infomation `Cookie` not found. Check config.json"
+			print('waining: 上次核酸时间未设置，默认为: ' + info['last_RNA'])
+	assert 'student_id' in info, "Expected infomation `User_Agent` not found. Check config.json"
+	assert 'password' in info, "Expected infomation `Cookie` not found. Check config.json"
 	assert 'location' in info, "Expected infomation `location` not found. Check config.json"
 	assert 'body_temp_ok' in info, "Expected infomation `body_temp_ok` not found. Check config.json"
 	assert 'health_status' in info, "Expected infomation `health_status` not found. Check config.json"
@@ -71,9 +72,12 @@ def main():
 	assert 'fam_mem_health_code_color' in info, "Expected infomation `fam_mem_health_code_color` not found. Check config.json"
 	assert 'last_RNA' in info, "Expected infomation `last_RNA` not found. Check config.json"
 
-	session = requests.Session()
-	session.headers["Cookie"] = info["Cookie"]
-	session.headers["User-Agent"] = info['User_Agent']
+	auth = Auth(info['student_id'], info['password'])
+	if not auth.login_mobile():
+		print("Login Failed")
+		return False
+	session = auth.session
+	session.headers["User-Agent"] = 'Mozilla/5.0 (Linux; Android 12; M2007J1SC Build/SKQ1.220303.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/104.0.5112.97 Mobile Safari/537.36 cpdaily/9.0.15 wisedu/9.0.15'
 	session.headers["Accept"] = "application/json, text/plain, */*"
 	session.headers["Accept-Encoding"] = "gzip, deflate"
 	session.headers["Connection"] = "keep-alive"
