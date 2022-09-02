@@ -63,6 +63,7 @@ except KeyError:
     info['last_RNA'] = 'default'
 except ValueError:
     print("last_RNA example: 2022-09-01+16")
+    raise
 
 try:
     info['try_N_times'] = os.environ['TRY_N_TIMES']
@@ -73,6 +74,7 @@ except KeyError:
     info['try_N_times'] = '3'
 except ValueError:
     print("Expected infomation `try_N_times` is a positive integer")
+    raise
 
 print(json.dumps(info, indent=4, ensure_ascii=False))
 with open('config.json', 'w') as f:
