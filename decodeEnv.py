@@ -74,10 +74,10 @@ except ValueError:
 try:
     info['try_N_times'] = os.environ['TRY_N_TIMES']
     if info['try_N_times'] == '':
-        info['try_N_times'] = '3'
+        info['try_N_times'] = '0'
     else: assert int(info['try_N_times']) >= 0, "Expected infomation `try_N_times` is a positive integer"
 except KeyError:
-    info['try_N_times'] = '3'
+    info['try_N_times'] = '0'
 except ValueError:
     print("Expected infomation `try_N_times` is a positive integer")
     raise
