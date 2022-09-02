@@ -109,23 +109,4 @@ def main():
 	
 
 if __name__ == '__main__':
-	result = main()
-	if not result:
-		with open(configFile, "r", encoding='utf-8') as f:
-			info = json.load(f)
-		if 'try_N_times' in info:
-			try:
-				try_N_times = int(info['try_N_times'])
-			except ValueError:
-				try_N_times = 3
-		else:
-			try_N_times = 3
-		N = try_N_times
-		while(not result and N > 0):
-			time.sleep(120)
-			result = main()
-			N -= 1
-		if not result:
-			cur_time = datetime.datetime.now().strftime("%Y年%m月%d日 %H点%M分%S秒")
-			print("failed after try " + str(try_N_times) + " times, " + cur_time)
-			exit(1)
+	assert main()
