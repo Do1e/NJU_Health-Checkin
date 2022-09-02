@@ -50,5 +50,5 @@
 ### 参考&感谢
 
 [yp51md/NJUcheckin](https://github.com/yp51md/NJUcheckin)  
-[yegcjs/NJU_Health-Checkin](https://github.com/yegcjs/NJU_Health-Checkin)
+[yegcjs/NJU_Health-Checkin](https://github.com/yegcjs/NJU_Health-Checkin)  
 [191840239/nju_auth](https://github.com/191840239/nju_auth)
