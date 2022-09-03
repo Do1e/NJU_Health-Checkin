@@ -48,11 +48,8 @@ class Auth():
             data = aes.encrypt(data)
             data = base64.b64encode(data).decode()
             return data
-                
-        service = "https://authserver.nju.edu.cn/authserver/mobile/callback"
-        url_service = f"{url_login}?service={service}"
 
-        r = self.session.get(url_service)
+        r = self.session.get(url_login)
         pwdDefaultEncryptSalt = re.search("\"pwdDefaultEncryptSalt\" value=\"(.+?)\"", r.text).group(1)
         e1s1 = re.search("\"execution\" value=\"(e\d+?s\d+?)\"", r.text).group(1)
         lt = re.search("LT-.+?-cas", r.text).group()
@@ -66,7 +63,7 @@ class Auth():
             "execution": e1s1, # 不能去掉
             "_eventId": "submit", # 不能去掉
         }
-        r = self.session.post(url_service, data=data, allow_redirects=False)
+        r = self.session.post(url_login, data=data, allow_redirects=False)
         if "CASTGC" not in r.cookies:
             self.err_msg = re.search("<span.+?auth_error.+?>(.+?)</span>", r.text).group(1)
 
