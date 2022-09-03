@@ -74,7 +74,7 @@
 
 ![1662041435032](image/README/1662041435032.png)
 
-* 在下面的窗口展开`Hypertext Transfer Protocol`，便可以找到需要填入的`User_Agent`和`Cookie`，右击，复制值，粘贴进config.json中即可(注意json中的引号不要删掉了)
+* 在下面的窗口展开`Hypertext Transfer Protocol`，便可以找到需要填入的`User_Agent`，右击，复制值，粘贴进config.json中即可(注意json中的引号不要删掉了)
 
 ![1662041538194](image/README/1662041538194.png)
 
