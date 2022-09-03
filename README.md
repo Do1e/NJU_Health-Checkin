@@ -1,7 +1,7 @@
 # NJU_Health-Checkin
 
 ---
-2022-09-03 18: 修复部分同学学号长度为12的问题，感谢 [i-Pear](https://github.com/i-Pear) 的PR  
+2022-09-03 18: 修复部分同学学号长度为12的问题，感谢 [@i-Pear](https://github.com/i-Pear) 的PR  
 2022-09-02 18: 已修复登录问题，感谢 [@log2dx](https://github.com/log2dx) 的PR  
 2022-09-02 16: 似乎还存在问题，暂时还没有修复  
 2022-09-02 11: 更新适用于最新的统一身份认证安全登录
