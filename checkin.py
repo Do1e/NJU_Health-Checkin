@@ -11,7 +11,7 @@ urls = {
 	"check_in": "http://ehallapp.nju.edu.cn/xgfw//sys/yqfxmrjkdkappnju/apply/saveApplyInfos.do",
 }
 
-def check_login(session, location):
+def check_login(session, location, leave_NJ):
 	r = session.get(urls['health_history'])
 	try:
 		history = json.loads(r.text)
@@ -23,12 +23,15 @@ def check_login(session, location):
 	wid = history['data'][0]['WID']
 	if location == 'default':
 		location = history['data'][1]['CURR_LOCATION'] # 与昨天的CURR_LOCATION保持一致
-	leaveNanjing = False
-	for i in range(1,14):
-		nowL = history['data'][i]['CURR_LOCATION']
-		if '南京市' not in nowL:
-			leaveNanjing = True
-			break
+	if leave_NJ == 'default':
+		leaveNanjing = False
+		for i in range(1,14):
+			nowL = history['data'][i]['CURR_LOCATION']
+			if '南京市' not in nowL:
+				leaveNanjing = True
+				break
+	else:
+		leaveNanjing = False if leave_NJ == '0' else True
 	return wid, location, leaveNanjing
 
 
@@ -73,6 +76,7 @@ def main():
 	assert 'health_status' in info, "Expected infomation `health_status` not found. Check config.json"
 	assert 'my_health_code_color' in info, "Expected infomation `my_health_code_color` not found. Check config.json"
 	assert 'fam_mem_health_code_color' in info, "Expected infomation `fam_mem_health_code_color` not found. Check config.json"
+	assert 'leave_NJ' in info, "Expected infomation `leave_NJ` not found. Check config.json"
 	assert 'last_RNA' in info, "Expected infomation `last_RNA` not found. Check config.json"
 
 	auth = Auth(info['student_id'], info['password'])
@@ -89,7 +93,7 @@ def main():
 	session.headers["X-Requested-With"] = "com.wisedu.cpdaily.nju"
 	session.headers["Referer"] = "http://ehallapp.nju.edu.cn/xgfw/sys/mrjkdkappnju/index.html"
 
-	wid, location, leaveNanjing = check_login(session, info['location'])
+	wid, location, leaveNanjing = check_login(session, info['location'], info['leave_NJ'])
 	if wid is None:
 		return False
 	info['leave_Nanjing'] = '1' if leaveNanjing else '0'
