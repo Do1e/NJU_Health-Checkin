@@ -4,7 +4,7 @@ import json
 info = {}
 info['student_id'] = os.environ['STUDENT_ID']
 assert info['student_id'] != '', "Expected infomation `student_id` not found. Check repository secret"
-assert len(info['student_id']) == 9 or len(info['student_id']) == 12, "Expected infomation `student_id` is not 9 or 12 digits. Check repository secret"
+assert len(info['student_id']) == 9 or len(info['student_id']) == 10 or len(info['student_id']) == 12, "Expected infomation `student_id` is not 9, 10 or 12 digits. Check repository secret"
 
 info['password'] = os.environ['PASSWORD']
 assert info['password'] != '', "Expected infomation `password` not found. Check epository secret"
