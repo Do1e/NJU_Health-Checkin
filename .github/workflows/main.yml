@@ -28,4 +28,5 @@ jobs:
           FAM_MEM_HEALTH_CODE_COLOR: ${{ secrets.FAM_MEM_HEALTH_CODE_COLOR }}
           LAST_RNA: ${{ secrets.LAST_RNA }}
           TRY_N_TIMES: ${{ secrets.TRY_N_TIMES }}
+          LEAVE_NJ: ${{ secrets.LEAVE_NJ }}
         run: python decodeEnv.py && python checkin.py
