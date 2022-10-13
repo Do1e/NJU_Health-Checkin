@@ -16,6 +16,9 @@
 * 或自行查找如何设置Windows下的定时任务
 
 **Github Actions**
+
+:rotating_light:**注意，在Github Actions运行时请勿修改`config.json`，否则会造成信息泄露，所有的修改请使用secret**
+
 * 右上角fork本仓库，之后点击`Create fork`
 
 ![1662048592065](image/README/1662048592065.png)
