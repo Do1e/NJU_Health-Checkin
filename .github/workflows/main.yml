@@ -21,6 +21,7 @@ jobs:
         env:
           STUDENT_ID: ${{ secrets.STUDENT_ID }}
           PASSWORD: ${{ secrets.PASSWORD }}
+          USER_AGENT: ${{ secrets.USER_AGENT }}
           LOCATION: ${{ secrets.LOCATION }}
           BODY_TEMP_OK: ${{ secrets.BODY_TEMP_OK }}
           HEALTH_STATUS: ${{ secrets.HEALTH_STATUS }}

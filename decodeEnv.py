@@ -47,14 +47,6 @@ except KeyError:
     info['my_health_code_color'] = '1'
 
 try:
-    info['leave_NJ'] = os.environ['LEAVE_NJ']
-    if info['leave_NJ'] == '':
-        info['leave_NJ'] = 'default'
-    else: assert info['leave_NJ'] in ['default', '0', '1'], "Expected infomation `leave_NJ` is default, 0 or 1"
-except KeyError:
-    info['leave_NJ'] = 'default'
-
-try:
     info['fam_mem_health_code_color'] = os.environ['FAM_MEM_HEALTH_CODE_COLOR']
     if info['fam_mem_health_code_color'] == '':
         info['fam_mem_health_code_color'] = '1'
@@ -89,6 +81,14 @@ except KeyError:
 except ValueError:
     print("Expected infomation `try_N_times` is a positive integer")
     raise
+
+try:
+    info['leave_NJ'] = os.environ['LEAVE_NJ']
+    if info['leave_NJ'] == '':
+        info['leave_NJ'] = 'default'
+    else: assert info['leave_NJ'] in ['default', '0', '1'], "Expected infomation `leave_NJ` is default, 0 or 1"
+except KeyError:
+    info['leave_NJ'] = 'default'
 
 print(json.dumps(info, indent=4, ensure_ascii=False))
 with open('config.json', 'w') as f:
