@@ -22,7 +22,11 @@ def check_login(session, location, leave_NJ):
 	print("Login Successfully")
 	wid = history['data'][0]['WID']
 	if location == 'default':
-		location = history['data'][1]['CURR_LOCATION'] # 与昨天的CURR_LOCATION保持一致
+		try:
+			location = history['data'][1]['CURR_LOCATION'] # 与昨天的CURR_LOCATION保持一致
+		except:
+			print('由于昨天没有打卡，无法获取默认打卡地点。请手动设置')
+			exit(-1)
 	if leave_NJ == 'default':
 		leaveNanjing = False
 		for i in range(1,14):
