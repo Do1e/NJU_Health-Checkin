@@ -30,7 +30,10 @@ def check_login(session, location, leave_NJ):
 	if leave_NJ == 'default':
 		leaveNanjing = False
 		for i in range(1,14):
-			nowL = history['data'][i]['CURR_LOCATION']
+			try:
+				nowL = history['data'][i]['CURR_LOCATION']
+			except:
+				continue
 			if '南京市' not in nowL:
 				leaveNanjing = True
 				break
