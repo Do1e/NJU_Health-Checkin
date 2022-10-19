@@ -1,6 +1,7 @@
 # NJU_Health-Checkin
 
 ---
+2022-10-19 11: 增加时区获取以保证"昨天"的计算方法在不同平台上的正确性  
 2022-09-27 17: 增加并修复14天内离宁选项控制，修复研究生学号长度为10的问题，感谢 [@Coegle](https://github.com/Coegle) 的PR  
 2022-09-03 18: 修复部分同学学号长度为12的问题，感谢 [@i-Pear](https://github.com/i-Pear) 的PR  
 2022-09-02 18: 已修复登录问题，感谢 [@log2dx](https://github.com/log2dx) 的PR  
