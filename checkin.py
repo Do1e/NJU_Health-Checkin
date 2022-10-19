@@ -73,7 +73,7 @@ def main():
 		info = json.load(f)
 		if info['last_RNA'] == 'default':
 			dtUTC = int(time.strftime('%z')) // 100
-			yesterday = datetime.datetime.now() - datetime.timedelta(days=1, hours=8) + datetime.timedelta(hours=dtUTC)
+			yesterday = datetime.datetime.now() - datetime.timedelta(days=1, hours=dtUTC) + datetime.timedelta(hours=8)
 			info['last_RNA'] = yesterday.strftime("%Y-%m-%d+%H")
 			print('waining: 上次核酸时间未设置，默认为: ' + info['last_RNA'])
 	assert 'student_id' in info, "Expected infomation `User_Agent` not found. Check config.json"
