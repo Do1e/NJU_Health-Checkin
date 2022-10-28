@@ -75,9 +75,9 @@ def main():
 			timeZone = time.strftime('%Z', time.gmtime())
 			assert timeZone[:2] == '中国' or timeZone[:5] == 'China' or timeZone[:3] == 'GMT', '本机时区无法转换，请在github(https://github.com/Do1e/NJU_Health-Checkin)提交issue'
 			if timeZone[:2] == '中国' or timeZone[:5] == 'China':
-				yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
+				yesterday = datetime.datetime.now() - datetime.timedelta(hours=3)
 			else:
-				yesterday = datetime.datetime.now() - datetime.timedelta(days=1) + datetime.timedelta(hours=8)
+				yesterday = datetime.datetime.now() - datetime.timedelta(hours=3) + datetime.timedelta(hours=8)
 			info['last_RNA'] = yesterday.strftime("%Y-%m-%d+%H")
 			print('waining: 上次核酸时间未设置，默认为: ' + info['last_RNA'])
 	assert 'student_id' in info, "Expected infomation `User_Agent` not found. Check config.json"
