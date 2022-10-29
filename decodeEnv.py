@@ -1,4 +1,5 @@
 import os
+import re
 import json
 
 info = {}
@@ -56,20 +57,18 @@ except KeyError:
 
 try:
     info['last_RNA'] = os.environ['LAST_RNA']
-    if info['last_RNA'] == '':
-        info['last_RNA'] = 'default'
-    if info['last_RNA'] != 'default':
-        assert len(info['last_RNA']) == 13, "last_RNA example: 2022-09-01+16"
-        assert info['last_RNA'][4] == '-' and info['last_RNA'][7] == '-' and info['last_RNA'][10] == '+', "last_RNA example: 2022-09-01+16"
-        assert int(info['last_RNA'][0:4]) >= 2022, "last_RNA example: 2022-09-01+16"
-        assert int(info['last_RNA'][5:7]) >= 1 and int(info['last_RNA'][5:7]) <= 12, "last_RNA example: 2022-09-01+16"
-        assert int(info['last_RNA'][8:10]) >= 1 and int(info['last_RNA'][8:10]) <= 31, "last_RNA example: 2022-09-01+16"
-        assert int(info['last_RNA'][11:13]) >= 0 and int(info['last_RNA'][11:13]) <= 23, "last_RNA example: 2022-09-01+16"
+    if info['last_RNA'] == '' or info['last_RNA'] == 'default':
+        info['last_RNA'] = 'default24'
+    else:
+        res = re.match(r'\d{4}-\d{2}-\d{2}\+\d{2}$', info['last_RNA'])
+        if not res:
+            res = re.match(r'\d+$', info['last_RNA'])
+            if not res:
+                raise ValueError("Expected infomation `last_RNA` is not in correct format. last_RNA example: 2022-09-01+16 or 24")
+            else:
+                info['last_RNA'] = 'default' + info['last_RNA']
 except KeyError:
-    info['last_RNA'] = 'default'
-except ValueError:
-    print("last_RNA example: 2022-09-01+16")
-    raise
+    info['last_RNA'] = 'default24'
 
 try:
     info['try_N_times'] = os.environ['TRY_N_TIMES']

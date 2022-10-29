@@ -71,11 +71,11 @@ def checkin(session, checkin_info):
 def main():
 	with open(configFile, "r", encoding='utf-8') as f:
 		info = json.load(f)
-		if info['last_RNA'] == 'default':
+		if info['last_RNA'][:7] == 'default':
 			dtUTC = int(time.strftime('%z')) // 100
-			yesterday = datetime.datetime.now() - datetime.timedelta(days=1, hours=dtUTC) + datetime.timedelta(hours=8)
+			hours = int(info['last_RNA'][7:]) + dtUTC - 8
+			yesterday = datetime.datetime.now() - datetime.timedelta(hours=hours)
 			info['last_RNA'] = yesterday.strftime("%Y-%m-%d+%H")
-			print('waining: 上次核酸时间未设置，默认为: ' + info['last_RNA'])
 	assert 'student_id' in info, "Expected infomation `User_Agent` not found. Check config.json"
 	assert 'password' in info, "Expected infomation `Cookie` not found. Check config.json"
 	assert 'User_Agent' in info, "Expected infomation `User_Agent` not found. Check config.json"
