@@ -3,7 +3,7 @@ name: NJU_Health_Checkin
 on:
   workflow_dispatch:
   schedule:
-    - cron: "12 5,6 * * *"
+    - cron: "12 5 * * *"
     # 对应的中国时间(UTC+8)为每天13点12分
 
 jobs:
