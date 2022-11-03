@@ -11,6 +11,11 @@ urls = {
 	"check_in": "http://ehallapp.nju.edu.cn/xgfw//sys/yqfxmrjkdkappnju/apply/saveApplyInfos.do",
 }
 
+def timeshift(intime: int | float) -> str:
+    dt = int(time.strftime('%z'))
+    intime -= (dt * 36 - 8 * 3600)
+    return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(intime))
+
 def check_login(session, location, leave_NJ):
 	r = session.get(urls['health_history'])
 	try:
@@ -43,7 +48,7 @@ def check_login(session, location, leave_NJ):
 
 
 def checkin(session, checkin_info):
-	cur_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	cur_time = timeshift(time.time())
 	info_t = namedtuple('Checkin_Info', 
 		['WID', 'CURR_LOCATION', 'IS_TWZC', 'IS_HAS_JKQK', 'JRSKMYS', 'JZRJRSKMYS', 'SFZJLN', 'ZJHSJCSJ']
 	)
@@ -74,8 +79,8 @@ def main():
 		if info['last_RNA'][:7] == 'default':
 			dtUTC = int(time.strftime('%z')) // 100
 			hours = int(info['last_RNA'][7:]) + dtUTC - 8
-			yesterday = datetime.datetime.now() - datetime.timedelta(hours=hours)
-			info['last_RNA'] = yesterday.strftime("%Y-%m-%d+%H")
+			last_RNA_time = datetime.datetime.now() - datetime.timedelta(hours=hours)
+			info['last_RNA'] = last_RNA_time.strftime("%Y-%m-%d+%H")
 	assert 'student_id' in info, "Expected infomation `User_Agent` not found. Check config.json"
 	assert 'password' in info, "Expected infomation `Cookie` not found. Check config.json"
 	assert 'User_Agent' in info, "Expected infomation `User_Agent` not found. Check config.json"
@@ -138,6 +143,6 @@ if __name__ == '__main__':
 			result = main()
 			N -= 1
 		if not result:
-			cur_time = datetime.datetime.now().strftime("%Y年%m月%d日 %H点%M分%S秒")
+			cur_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 			print("failed after try " + str(try_N_times) + " times, " + cur_time)
 			exit(1)
