@@ -19,7 +19,7 @@
 
 **Github Actions**
 
-:rotating_light:**注意，在Github Actions运行时请勿修改`config.json`，否则会造成信息泄露，所有的修改请使用secret**
+:rotating_light:**注意，在Github Actions运行时请勿修改`config.json`，否则会造成信息泄露并且！无效！，所有的修改请使用secret**
 
 * 右上角fork本仓库，之后点击`Create fork`
 
