@@ -2,6 +2,7 @@ import json
 import time
 from collections import namedtuple
 import datetime
+import argparse
 
 from auth_login import Auth
 
@@ -73,8 +74,8 @@ def checkin(session, checkin_info):
 		print("failed, " + cur_time)
 		return False
 
-def main():
-	with open(configFile, "r", encoding='utf-8') as f:
+def main(config: str):
+	with open(config, "r", encoding='utf-8') as f:
 		info = json.load(f)
 		if info['last_RNA'][:7] == 'default':
 			dtUTC = int(time.strftime('%z')) // 100
@@ -126,9 +127,12 @@ def main():
 	
 
 if __name__ == '__main__':
-	result = main()
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-c', '--config', help='config file path', default=configFile)
+	args = parser.parse_args()
+	result = main(args.config)
 	if not result:
-		with open(configFile, "r", encoding='utf-8') as f:
+		with open(args.config, "r", encoding='utf-8') as f:
 			info = json.load(f)
 		if 'try_N_times' in info:
 			try:
