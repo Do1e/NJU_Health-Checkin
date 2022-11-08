@@ -17,7 +17,7 @@ def timeshift(intime: int | float) -> str:
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(intime))
 
 def check_login(session, location, leave_NJ):
-	r = session.get(urls['health_history'])
+	r = session.get(urls['health_history'], verify=False)
 	try:
 		history = json.loads(r.text)
 		assert history['code'] == '0'
@@ -58,7 +58,7 @@ def checkin(session, checkin_info):
 		checkin_url += f'{key}={value}&'
 	checkin_url = checkin_url[:-1]  # drop last &
 
-	r = session.get(checkin_url)
+	r = session.get(checkin_url, verify=False)
 	try:
 		result = json.loads(r.text)
 	except:
