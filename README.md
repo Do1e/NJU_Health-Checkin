@@ -15,7 +15,7 @@
 
 * 在config.json中填写`student_id`、`password`、`User_Agent`(见抓包方法)、上次核酸时间(default表示默认昨天做的核酸)、打卡地点(default表示默认昨天的打卡地点，因此地点更新只需在手机上手动打卡一次即可)，其中student_id、password为**必须修改的项目**，其余的可以使用config.json中的默认值，具体介绍见config.json解析
 * 运行`python checkin.py`即可完成打卡一次
-* 若要每天12:00自动运行，请在`contab -e`中添加以下命令：`0 12 * * * cd /path/to/checkin && python checkin.py >> checkin.log 2>&1`
+* 若要每天12:00自动运行，请在`crontab -e`中添加以下命令：`0 12 * * * cd /path/to/checkin && python checkin.py >> checkin.log 2>&1`
 * 或自行查找如何设置Windows下的定时任务
 
 **Github Actions**
