@@ -1,6 +1,7 @@
 # NJU_Health-Checkin
 
 ---
+2022-11-13 15: 新增配置文件选择，可部署多个账号；使用`NJUlogin`库进行登录  
 2022-11-04 22: Github Action抽风，更改了一下Python版本，现在可以正常运行了  
 2022-10-29 11: 新增核酸时间配置，新增支持数字格式，表示在打卡时间前`x`小时做了核酸，默认为24  
 2022-10-19 11: 增加时区获取以保证"昨天"的计算方法在不同平台上的正确性  
@@ -15,6 +16,7 @@
 
 * 在config.json中填写`student_id`、`password`、`User_Agent`(见抓包方法)、上次核酸时间(default表示默认昨天做的核酸)、打卡地点(default表示默认昨天的打卡地点，因此地点更新只需在手机上手动打卡一次即可)，其中student_id、password为**必须修改的项目**，其余的可以使用config.json中的默认值，具体介绍见config.json解析
 * 运行`python checkin.py`即可完成打卡一次
+* 或者`python checkin.py -c config.json`来选择指定的配置文件
 * 若要每天12:00自动运行，请在`crontab -e`中添加以下命令：`0 12 * * * cd /path/to/checkin && python checkin.py >> checkin.log 2>&1`
 * 或自行查找如何设置Windows下的定时任务
 

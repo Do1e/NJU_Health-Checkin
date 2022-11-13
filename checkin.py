@@ -3,8 +3,7 @@ import time
 from collections import namedtuple
 import datetime
 import argparse
-
-from auth_login import Auth
+import NJUlogin
 
 configFile = "config.json"
 urls = {
@@ -93,12 +92,10 @@ def main(config: str):
 	assert 'leave_NJ' in info, "Expected infomation `leave_NJ` not found. Check config.json"
 	assert 'last_RNA' in info, "Expected infomation `last_RNA` not found. Check config.json"
 
-	auth = Auth(info['student_id'], info['password'])
-	auth.login_mobile()
-	if not auth.is_login():
-		print(auth.err_msg)
+	pwdlogin = NJUlogin.pwdLogin(info['student_id'], info['password'], headers={'User-Agent': info['User_Agent']}, mobileLogin=True)
+	if not pwdlogin.login(''):
 		return False
-	session = auth.session
+	session = pwdlogin.session
 	session.headers["User-Agent"] = info['User_Agent']
 	session.headers["Accept"] = "application/json, text/plain, */*"
 	session.headers["Accept-Encoding"] = "gzip, deflate"
@@ -122,7 +119,7 @@ def main(config: str):
 		info['last_RNA']                     # 上次核酸时间
 	)
 	status = checkin(session, health_status)
-	auth.logout()
+	pwdlogin.logout()
 	return status
 	
 
@@ -147,6 +144,6 @@ if __name__ == '__main__':
 			result = main()
 			N -= 1
 		if not result:
-			cur_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+			cur_time = timeshift(time.time())
 			print("failed after try " + str(try_N_times) + " times, " + cur_time)
 			exit(1)
