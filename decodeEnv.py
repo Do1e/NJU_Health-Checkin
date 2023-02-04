@@ -89,6 +89,14 @@ try:
 except KeyError:
     info['leave_NJ'] = 'default'
 
+try:
+    info['infection_status'] = os.environ['INFECTION_STATUS']
+    if info['infection_status'] == '':
+        info['infection_status'] = '2'
+    else: assert info['infection_status'] in ['1', '2', '3'], "Expected infomation `infection_status` is 1, 2 or 3"
+except KeyError:
+    info['infection_status'] = '2'
+
 print(json.dumps(info, indent=4, ensure_ascii=False))
 with open('config.json', 'w') as f:
     f.write(json.dumps(info, indent=4, ensure_ascii=False))

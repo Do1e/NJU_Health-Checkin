@@ -50,7 +50,7 @@ def check_login(session, location, leave_NJ):
 def checkin(session, checkin_info):
 	cur_time = timeshift(time.time())
 	info_t = namedtuple('Checkin_Info', 
-		['WID', 'CURR_LOCATION', 'IS_TWZC', 'IS_HAS_JKQK', 'JRSKMYS', 'JZRJRSKMYS', 'SFZJLN', 'ZJHSJCSJ']
+		['WID', 'CURR_LOCATION', 'IS_TWZC', 'IS_HAS_JKQK', 'JRSKMYS', 'JZRJRSKMYS', 'SFZJLN', 'ZJHSJCSJ', 'DQDXGZK']
 	)
 	info = info_t._make(checkin_info)
 	checkin_url = urls['check_in']+'?'
@@ -91,6 +91,7 @@ def main(config: str):
 	assert 'fam_mem_health_code_color' in info, "Expected infomation `fam_mem_health_code_color` not found. Check config.json"
 	assert 'leave_NJ' in info, "Expected infomation `leave_NJ` not found. Check config.json"
 	assert 'last_RNA' in info, "Expected infomation `last_RNA` not found. Check config.json"
+	assert 'infection_status' in info, "Expected infomation `infection_status` not found. Check config.json"
 
 	pwdlogin = NJUlogin.pwdLogin(info['student_id'], info['password'], headers={'User-Agent': info['User_Agent']}, mobileLogin=True)
 	if not pwdlogin.login(''):
@@ -116,7 +117,8 @@ def main(config: str):
 		info['my_health_code_color'],        # 本人苏康码颜色
 		info['fam_mem_health_code_color'],   # 家人苏康码颜色
 		info['leave_Nanjing'],               # 14天是否离宁
-		info['last_RNA']                     # 上次核酸时间
+		info['last_RNA'],                    # 上次核酸时间
+		info['infection_status']             # 当前感染状态
 	)
 	status = checkin(session, health_status)
 	pwdlogin.logout()
