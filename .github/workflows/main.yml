@@ -28,7 +28,6 @@ jobs:
           HEALTH_STATUS: ${{ secrets.HEALTH_STATUS }}
           MY_HEALTH_CODE_COLOR: ${{ secrets.MY_HEALTH_CODE_COLOR }}
           FAM_MEM_HEALTH_CODE_COLOR: ${{ secrets.FAM_MEM_HEALTH_CODE_COLOR }}
-          LAST_RNA: ${{ secrets.LAST_RNA }}
           TRY_N_TIMES: ${{ secrets.TRY_N_TIMES }}
           LEAVE_NJ: ${{ secrets.LEAVE_NJ }}
           INFECTION_STATUS: ${{ secrets.INFECTION_STATUS }}

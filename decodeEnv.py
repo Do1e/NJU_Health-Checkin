@@ -56,21 +56,6 @@ except KeyError:
     info['fam_mem_health_code_color'] = '1'
 
 try:
-    info['last_RNA'] = os.environ['LAST_RNA']
-    if info['last_RNA'] == '' or info['last_RNA'] == 'default':
-        info['last_RNA'] = 'default24'
-    else:
-        res = re.match(r'\d{4}-\d{2}-\d{2}\+\d{2}$', info['last_RNA'])
-        if not res:
-            res = re.match(r'\d+$', info['last_RNA'])
-            if not res:
-                raise ValueError("Expected infomation `last_RNA` is not in correct format. last_RNA example: 2022-09-01+16 or 24")
-            else:
-                info['last_RNA'] = 'default' + info['last_RNA']
-except KeyError:
-    info['last_RNA'] = 'default24'
-
-try:
     info['try_N_times'] = os.environ['TRY_N_TIMES']
     if info['try_N_times'] == '':
         info['try_N_times'] = '0'
