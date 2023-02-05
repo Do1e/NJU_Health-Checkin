@@ -1,7 +1,7 @@
 # NJU_Health-Checkin
 
 ---
-2023-02-05 12: 添加“当前感染状态”配置，感谢 [@Coegle](https://github.com/Coegle) 的PR。其他的配置在手机界面中虽然没有了，但在实际链接中还是以默认值存在。
+2023-02-05 12: 添加“当前感染状态”配置，感谢 [@Coegle](https://github.com/Coegle) 的PR。删除上次核酸时间配置。其他的配置在手机界面中虽然没有了，但在实际链接中还是以默认值存在。
 
 2022-11-13 15: 新增配置文件选择，可部署多个账号；使用[NJUlogin](https://github.com/Do1e/NJUlogin)库进行登录
 
