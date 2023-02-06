@@ -21,7 +21,7 @@ def check_login(session, location, leave_NJ):
 		history = json.loads(r.text)
 		assert history['code'] == '0'
 	except:
-		return None, location, False
+		return None, location, False, None
 
 	print("Login Successfully")
 	wid = history['data'][0]['WID']
