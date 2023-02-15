@@ -10,7 +10,7 @@ urls = {
 	"check_in": "http://ehallapp.nju.edu.cn/xgfw//sys/yqfxmrjkdkappnju/apply/saveApplyInfos.do",
 }
 
-def timeshift(intime: int | float) -> str:
+def timeshift(intime: float) -> str:
     dt = int(time.strftime('%z'))
     intime -= (dt * 36 - 8 * 3600)
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(intime))
